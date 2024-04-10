@@ -1,24 +1,32 @@
 
 let bankBranchInstance = null;
-class bankBranch {
-    construct(branchinfo) {
-        class BankBranch {
-            constructor(branchInfo) {
-              return !BankBranch.bankBranchInstance ? 
-                (this.branchInfo = branchInfo, BankBranch.bankBranchInstance = this) : 
-                BankBranch.bankBranchInstance;
-            }
-          }         
+// Define the Singleton class for BankBranch
+class BankBranch {
+  constructor(branchInfo) {
+    // Check if the instance already exists; if yes, return it; otherwise, create a new instance
+    bankBranchInstance = !bankBranchInstance ? this : bankBranchInstance;
+    
+    // Assign branchInfo if it's a new instance
+    if (!bankBranchInstance) {
+      this.branchInfo = branchInfo;
+      bankBranchInstance = this;
     }
+    
+    return bankBranchInstance;
+  }
+
+  // Define methods to manage branch information
+  getBranchInfo() {
+    return this.branchInfo;
+  }
 }
 
-getBranchInfo() {
-     return this.branchInfo;
-}
-   
-//Usage
-const branchA = new bankBranch("Main Street Branch");
-console.log(branchA.getBranchInfo());
+
+// Usage
+const branchA = new BankBranch("Main Street Branch");
+console.log(branchA.getBranchInfo()); 
 
 const branchB = new BankBranch("Second Street Branch");
-console.log(branchB.getBranchInfo());
+console.log(branchB.getBranchInfo()); 
+
+console.log(branchA === branchB); 
